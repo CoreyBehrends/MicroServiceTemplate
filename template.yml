@@ -1,0 +1,19 @@
+server:
+
+  applicationConnectors:
+    - type: http
+      port: 8088
+
+  adminConnectors:
+    - type: http
+      port: 8086
+
+
+database:
+
+  driverClass: org.h2.Driver
+  user: beapro20
+  password: beapro20
+  url: jdbc:h2:~/test1
+  properties:
+    hibernate.hbm2ddl.auto: create-drop
