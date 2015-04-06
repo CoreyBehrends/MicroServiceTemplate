@@ -1,9 +1,14 @@
 package com.proathlete.model;
 
+import com.proathlete.persistance.AbstractEntityImpl;
 
-public class Greeting {
+import javax.persistence.Entity;
 
-   private String greeting;
+@Entity
+public class Greeting extends AbstractEntityImpl {
+
+
+    private String greeting;
 
     public String getGreeting() {
         return greeting;

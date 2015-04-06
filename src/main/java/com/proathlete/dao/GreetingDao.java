@@ -1,7 +1,10 @@
 package com.proathlete.dao;
 
-/**
- * Created by cbehrends on 4/6/15.
- */
-public interface GreetingDao {
+
+import com.proathlete.model.Greeting;
+import com.proathlete.persistance.CrudMethods;
+
+public interface GreetingDao extends CrudMethods<Greeting> {
+
+
 }

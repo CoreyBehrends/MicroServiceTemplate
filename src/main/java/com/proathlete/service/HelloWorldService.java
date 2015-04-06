@@ -1,7 +1,8 @@
 package com.proathlete.service;
 
-/**
- * Created by cbehrends on 4/6/15.
- */
-public class HelloWorldService {
+
+public interface HelloWorldService {
+
+    public String sayHello();
+
 }

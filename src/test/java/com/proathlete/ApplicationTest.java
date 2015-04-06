@@ -1,11 +1,10 @@
 package com.proathlete;
 
 import com.google.common.io.Resources;
-import com.proathlete.productcatalog.api.ProductController;
-import com.proathlete.productcatalog.catalog.domain.ProductImpl;
-import com.proathlete.productcatalog.catalog.service.CatalogService;
-import com.proathlete.productcatalog.config.ProductCatalogConfig;
-import com.proathlete.productcatalog.config.ProductCatalogServiceRunner;
+import com.proathlete.api.HelloWorldController;
+import com.proathlete.config.App;
+import com.proathlete.config.Config;
+import com.proathlete.service.HelloWorldService;
 import io.dropwizard.testing.junit.DropwizardAppRule;
 import io.dropwizard.testing.junit.ResourceTestRule;
 import org.junit.AfterClass;
@@ -25,15 +24,15 @@ import static org.mockito.Mockito.when;
 public class ApplicationTest {
 
 
-    private static CatalogService offerService = mock(CatalogService.class);
+    private static HelloWorldService helloWorldService = mock(HelloWorldService.class);
 
     @ClassRule
-    public static final DropwizardAppRule<ProductCatalogConfig> RULE =
-            new DropwizardAppRule<>(ProductCatalogServiceRunner.class, resourceFilePath("product_catalog_test.yml"));
+    public static final DropwizardAppRule<Config> RULE =
+            new DropwizardAppRule<Config>(App.class, resourceFilePath("template.yml"));
 
     @ClassRule
     public static final ResourceTestRule resources = ResourceTestRule.builder()
-            .addResource(new ProductController(offerService))
+            .addResource(new HelloWorldController(helloWorldService))
             .build();
 
     @AfterClass
@@ -45,9 +44,9 @@ public class ApplicationTest {
     @Test
     public void default_route_returns_200() {
 
-        when(offerService.findProductById(1L)).thenReturn(new ProductImpl());
+        when(helloWorldService.sayHello()).thenReturn("Hello!");
 
-        Response response = resources.client().target("/product/1/").request().head();
+        Response response = resources.client().target("/hello/").request().head();
         assertEquals(200,response.getStatus());
 
     }

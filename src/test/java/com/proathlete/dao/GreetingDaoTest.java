@@ -1,92 +1,74 @@
 package com.proathlete.dao;
 
+
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.proathlete.productcatalog.AbstractDaoHarness;
-import com.proathlete.productcatalog.catalog.domain.Product;
-import com.proathlete.productcatalog.catalog.domain.ProductImpl;
-import com.proathlete.productcatalog.catalog.domain.Sku;
-import com.proathlete.productcatalog.catalog.domain.SkuImpl;
-import com.proathlete.productcatalog.persistance.CrudMethods;
+import com.proathlete.AbstractDaoHarness;
+import com.proathlete.model.Greeting;
 import org.hibernate.Transaction;
 import org.junit.Test;
 
-import java.math.BigDecimal;
-
-import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
-
+import static org.junit.Assert.assertNull;
 
 public class GreetingDaoTest extends AbstractDaoHarness {
 
-    protected CrudMethods<Product> productDao;
-    protected CrudMethods<Sku> skuDao;
+    private GreetingDao greetingDao;
+
 
     @Test
-    public void productDao_Persists_Entities() throws JsonProcessingException {
+    public void greetingDao_Persists_Entities() throws JsonProcessingException {
 
         Transaction trans = sessionFactory.getCurrentSession().beginTransaction();
 
-        productDao = new ProductDaoImpl(sessionFactory);
-        skuDao = new SkuDaoImpl(sessionFactory);
-        ProductImpl entity = new ProductImpl();
-
-        SkuImpl defaultSku = new SkuImpl();
-        defaultSku.setPrice(BigDecimal.valueOf(100));
-        entity.getSkus().add(defaultSku);
-
-        entity.setName("The Manderson");
-        entity.setModelNumber("BFG 9000");
-        entity.setDescription("Desc");
-        entity.setShortDescription("Short");
-        productDao.save(entity);
+        greetingDao = new GreetingDaoImpl(sessionFactory);
+        Greeting greeting = new Greeting();
+        greeting.setGreeting("Hello!");
+        greeting = greetingDao.save(greeting);
         trans.commit();
+
+        //Read new entity back out
 
         trans = sessionFactory.getCurrentSession().beginTransaction();
-        ProductImpl queryProduct = (ProductImpl ) productDao.getById(entity.getId());
+        Greeting newGreeting = greetingDao.getById(greeting.getId());
         trans.commit();
 
-        assertNotNull("Prod id was null",entity.getId());
+        //Compare values
+        assertEquals(greeting.getGreeting(), newGreeting.getGreeting());
 
 
-
-        assertEquals(entity.getId(), queryProduct.getId());
-        assertEquals(entity.getId(), queryProduct.getSkus().get(0).getProductId());
-        assertEquals(entity.getDescription(), queryProduct.getDescription());
-        assertEquals(entity.getModelNumber(), queryProduct.getModelNumber());
     }
 
     @Test
-    public void productDao_Deletes_Entities(){
-
-
+    public void greetingDao_Deletes_Entities() throws JsonProcessingException {
 
         Transaction trans = sessionFactory.getCurrentSession().beginTransaction();
 
-        productDao = new ProductDaoImpl(sessionFactory);
-        Product entity = new ProductImpl();
-
-        SkuImpl defaultSku = new SkuImpl();
-        defaultSku.setPrice(BigDecimal.valueOf(100));
-        entity.setName("The Manderson");
-
-        productDao.save(entity);
-
-        Product queryProduct = productDao.getById(entity.getId());
-
+        greetingDao = new GreetingDaoImpl(sessionFactory);
+        Greeting greeting = new Greeting();
+        greeting.setGreeting("Hello!");
+        greeting = greetingDao.save(greeting);
         trans.commit();
 
-        assertNotNull("Product was not found", queryProduct);
+        //Read new entity back out, then delete
 
         trans = sessionFactory.getCurrentSession().beginTransaction();
-        productDao.delete(queryProduct);
+        greetingDao.delete(greeting);
         trans.commit();
 
         trans = sessionFactory.getCurrentSession().beginTransaction();
-        queryProduct = productDao.getById(entity.getId());
+        Greeting newGreeting = greetingDao.getById(greeting.getId());
         trans.commit();
 
-        assertNull("Product not deleted", queryProduct);
+        assertNull(newGreeting);
+
+
+
+
 
     }
+
+
+
+
 
 }

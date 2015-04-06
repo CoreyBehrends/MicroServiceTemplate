@@ -1,6 +1,6 @@
 package com.proathlete;
 
-import com.proathlete.api.HelloWorldController;
+import com.proathlete.model.Greeting;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
@@ -23,7 +23,7 @@ public class AbstractDaoHarness {
         configuration.setProperty("hibernate.hbm2ddl.auto", "create");
         configuration.setProperty("hibernate.connection.autocommit", "false");
         configuration.setProperty("hibernate.current_session_context_class","thread");
-        configuration.addAnnotatedClass(HelloWorldController.class);
+        configuration.addAnnotatedClass(Greeting.class);
 
 
         return configuration;
