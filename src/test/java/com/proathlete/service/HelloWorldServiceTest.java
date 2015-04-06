@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import static junit.framework.TestCase.assertTrue;
 
-public class GreetingWorldServiceTest {
+public class HelloWorldServiceTest {
 
     private HelloWorldService helloWorldService;
 
