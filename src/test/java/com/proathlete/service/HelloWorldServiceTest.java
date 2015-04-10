@@ -27,6 +27,7 @@ public class HelloWorldServiceTest {
     public void helloWorldService_says_hello(){
         Greeting greeting = new Greeting();
         greeting.setGreeting("Hello!");
+        greeting.setId(1L);
         when(greetingDao.getById(anyLong())).thenReturn(greeting);
         String hello = helloWorldService.sayHello();
         assertTrue("Hello!".equals(hello));
