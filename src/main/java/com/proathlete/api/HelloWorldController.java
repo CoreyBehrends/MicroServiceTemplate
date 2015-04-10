@@ -20,8 +20,8 @@ public class HelloWorldController {
 
     @GET
     @Path("hello/")
-    @Timed(name = "HelloWorldController_sayHello_timing")
-    @ExceptionMetered(name = "HelloWorldController_sayHello_exception_rate")
+    @Timed(name = "sayHello_timing")
+    @ExceptionMetered(name = "sayHello_exception_rate")
     @UnitOfWork
     public String sayHello(){
         return helloWorldService.sayHello();

@@ -27,25 +27,12 @@ public class App extends Application<Config> {
         //Init Dagger
         ObjectGraph objectGraph = ObjectGraph.create(new DaggerModule(hibernateBundle.getSessionFactory()));
 
-        //initGraphite(environment);
 
         //Add endpoints to Jersey
         environment.jersey().register(objectGraph.get(HelloWorldController.class));
 
 
     }
-
-
-//    private void initGraphite(Environment environment) {
-//        final Graphite graphite = new Graphite(new InetSocketAddress("192.168.99.100", 2003));
-//        final GraphiteReporter reporter = GraphiteReporter.forRegistry(environment.metrics())
-//                .prefixedWith("product_catalog")
-//                .convertRatesTo(TimeUnit.SECONDS)
-//                .convertDurationsTo(TimeUnit.MILLISECONDS)
-//                .filter(MetricFilter.ALL)
-//                .build(graphite);
-//        reporter.start(10, TimeUnit.SECONDS);
-//    }
 
     private final ScanningHibernateBundle<Config> hibernateBundle =
             new ScanningHibernateBundle<Config>("com.proathlete.model") {

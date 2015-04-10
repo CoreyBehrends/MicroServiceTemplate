@@ -17,3 +17,14 @@ database:
   url: jdbc:h2:~/test1
   properties:
     hibernate.hbm2ddl.auto: create-drop
+
+
+metrics:
+  reporters:
+    - type: graphite
+      host: graphite
+      port: 2003
+      prefix: product_catalog
+      durationUnit: milliseconds
+      rateUnit: seconds
+      frequency: 30 seconds
