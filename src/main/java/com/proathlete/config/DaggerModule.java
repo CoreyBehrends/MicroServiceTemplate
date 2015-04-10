@@ -2,6 +2,7 @@ package com.proathlete.config;
 
 
 import com.proathlete.api.HelloWorldController;
+import com.proathlete.dao.GreetingDaoImpl;
 import com.proathlete.service.HelloWorldService;
 import com.proathlete.service.HelloWorldServiceImpl;
 import dagger.Module;
@@ -33,7 +34,7 @@ public class DaggerModule {
     @Singleton
     public HelloWorldService provideHelloWorldService() {
 
-        return new HelloWorldServiceImpl();
+        return new HelloWorldServiceImpl(new GreetingDaoImpl(sessionFactory));
     }
 
 
