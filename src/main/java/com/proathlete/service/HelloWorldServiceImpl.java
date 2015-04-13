@@ -1,22 +1,30 @@
 package com.proathlete.service;
 
-import com.proathlete.dao.GreetingDao;
-import com.proathlete.model.Greeting;
+import com.proathlete.client.GreetingClient;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
 
 public class HelloWorldServiceImpl implements HelloWorldService {
 
-    GreetingDao greetingDao;
+    GreetingClient greetingClient;
+    private static final Logger LOGGER = LoggerFactory.getLogger(HelloWorldServiceImpl.class);
 
-    public HelloWorldServiceImpl(GreetingDao greetingDao){
-        this.greetingDao = greetingDao;
+
+    public HelloWorldServiceImpl(GreetingClient greetingClient){
+        this.greetingClient = greetingClient;
     }
 
     @Override
     public String sayHello() {
-        Greeting greeting = new Greeting();
-        greeting.setGreeting("Hello!");
-        greetingDao.save(greeting);
 
-        return greetingDao.getById(1L).getGreeting();
+        try {
+            return greetingClient.getGreeting().getGreeting();
+        } catch (IOException e) {
+            LOGGER.error("An error ocured while saying hello",e);
+        }
+
+        return "";
     }
 }
