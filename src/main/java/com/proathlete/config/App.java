@@ -12,7 +12,6 @@ public class App extends Application<Config> {
 
 
     public static void main(String[] args) throws Exception {       //NOSONAR throws Exception required by parent class
-
         new App().run(args);
     }
 
@@ -27,10 +26,8 @@ public class App extends Application<Config> {
         //Init Dagger
         ObjectGraph objectGraph = ObjectGraph.create(new DaggerModule(hibernateBundle.getSessionFactory()));
 
-
         //Add endpoints to Jersey
         environment.jersey().register(objectGraph.get(HelloWorldController.class));
-
 
     }
 

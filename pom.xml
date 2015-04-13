@@ -297,7 +297,7 @@
                             <transformers>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>com.proathlete.productcatalog.config.Config</mainClass>
+                                    <mainClass>com.proathlete.config.App</mainClass>
                                 </transformer>
                             </transformers>
                         </configuration>
