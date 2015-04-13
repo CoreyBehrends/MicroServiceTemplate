@@ -2,12 +2,14 @@ package com.proathlete.config;
 
 
 import com.proathlete.api.HelloWorldController;
-import com.proathlete.dao.GreetingDaoImpl;
+import com.proathlete.client.GreetingClientImpl;
 import com.proathlete.service.HelloWorldService;
 import com.proathlete.service.HelloWorldServiceImpl;
 import dagger.Module;
 import dagger.Provides;
-import org.hibernate.SessionFactory;
+import io.dropwizard.client.HttpClientBuilder;
+import io.dropwizard.setup.Environment;
+import org.apache.http.client.HttpClient;
 
 import javax.inject.Singleton;
 
@@ -17,10 +19,11 @@ import javax.inject.Singleton;
 )
 public class DaggerModule {
 
-    private SessionFactory sessionFactory;
+    private HttpClient httpClient;
 
-    public DaggerModule(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
+
+    public DaggerModule(Environment environment, Config config) {
+        httpClient = new HttpClientBuilder(environment).using(config.getHttpClientConfiguration()).build("product_service");
     }
 
     @Provides
@@ -34,8 +37,6 @@ public class DaggerModule {
     @Singleton
     public HelloWorldService provideHelloWorldService() {
 
-        return new HelloWorldServiceImpl(new GreetingDaoImpl(sessionFactory));
+        return new HelloWorldServiceImpl(new GreetingClientImpl(httpClient));
     }
-
-
 }

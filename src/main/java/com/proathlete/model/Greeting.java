@@ -1,14 +1,21 @@
 package com.proathlete.model;
 
-import com.proathlete.persistance.AbstractEntityImpl;
-
-import javax.persistence.Entity;
-
-@Entity
-public class Greeting extends AbstractEntityImpl {
+public class Greeting {
 
 
+
+    private Long id;
     private String greeting;
+
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
 
     public String getGreeting() {
         return greeting;

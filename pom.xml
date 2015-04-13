@@ -40,6 +40,12 @@
             <version>${dropwizard.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>io.dropwizard</groupId>
+            <artifactId>dropwizard-client</artifactId>
+            <version>${dropwizard.version}</version>
+        </dependency>
+
 
         <!--DI-->
         <dependency>
@@ -54,14 +60,6 @@
             <version>${dagger.version}</version>
             <optional>true</optional>
         </dependency>
-
-        <!-- Hibernate -->
-        <dependency>
-            <groupId>io.dropwizard</groupId>
-            <artifactId>dropwizard-hibernate</artifactId>
-            <version>${dropwizard.version}</version>
-        </dependency>
-
 
         <!-- Test Stuff -->
 
@@ -103,14 +101,6 @@
             <artifactId>commons-io</artifactId>
             <version>${commons.io.version}</version>
             <scope>test</scope>
-        </dependency>
-
-
-        <dependency>
-
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <version>1.3.170</version>
         </dependency>
 
         <dependency>
