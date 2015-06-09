@@ -22,7 +22,7 @@ public class HelloWorldServiceImpl implements HelloWorldService {
         try {
             return greetingClient.getGreeting().getGreeting();
         } catch (IOException e) {
-            LOGGER.error("An error ocured while saying hello",e);
+            LOGGER.error("An error occurred while saying hello",e);
         }
 
         return "";
